@@ -1,0 +1,53 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Amashop</title>
+    <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+    <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+    <link rel="stylesheet" href="/static/style.css" type="text/css">
+</head>
+
+<body>
+<div id="header">
+   <div id="profile">
+        {% if user.username %}
+            <a href="{% url "mybaskets:userprofile_detail" user.id %}">Hellooo! {{ user.username }}</a>
+        {% endif %}
+   </div>
+    <h1><a href="/mybaskets">Amashop</a></h1>
+    {% block menu %}
+        <div id="menu">
+            <ul>
+                <li><a href="/mybaskets">Home</a></li>
+                <li><a href="/mybaskets/baskets">MyBaskets</a></li>
+                <li><a href="/mybaskets/categories">Categories</a></li>
+                <li><a href="/mybaskets/subcategories">Subcategories</a></li>
+                <li><a href="/mybaskets/products">Products</a></li>
+            </ul>
+        </div>
+    {% endblock %}
+    <div id="login">
+            <ul>
+                {% if user.username %}
+                <li><a href="/logout">Logout</a></li>
+                    {% if user.username == "admin" %}
+                        <li><a href="/admin">Administration</a></li>
+                    {% endif %}
+                {% else %}
+                    <li><a title="Login" href="/login">Sign in</a></li>
+                {% endif %}
+            </ul>
+    </div>
+    {% block header %}
+    {% endblock %}
+</div>
+<div id="content">
+    {% block content %}
+    {% endblock %}
+</div>
+<div id="footer">
+    {% block footer %}{% endblock %}
+</div>
+</body>
+</html>
