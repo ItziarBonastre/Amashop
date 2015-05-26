@@ -1,0 +1,25 @@
+{% extends "mybaskets/base.html" %}
+
+{% block content %}
+
+<h1>
+    {% if user.is_authenticated %}
+        Basket
+            (<a href="{% url 'mybaskets:basket_create' %}">add</a>)
+    {% else %}
+        <h2>Please <a href="/login/">log in</a> to manage baskets</h2>
+    {% endif %}
+
+</h1>
+
+<ul>
+    {% for basket in latest_basket_list %}
+      {% if user == basket.user %}
+        <li><a href="{% url 'mybaskets:basket_detail' basket.id %}">{{ basket.name }}</a></li>
+      {% endif %}
+    {% empty %}
+        <li>Sorry, no baskets registered yet.</li>
+    {% endfor %}
+</ul>
+
+{% endblock %}
