@@ -1,0 +1,69 @@
+from django.db import models
+from django.contrib.auth.models import User
+from django.core.urlresolvers import reverse
+from datetime import date
+
+
+class Category(models.Model):
+    name = models.CharField(max_length=50)
+
+    def __unicode__(self):
+        return u"%s" % self.name
+
+
+class Subcategory(models.Model):
+    name = models.CharField(max_length=50)
+    category = models.ForeignKey(Category, default=1)
+
+    def __unicode__(self):
+        return u"%s" % self.name
+
+
+class Product(models.Model):
+    name = models.CharField(max_length=50)
+    subcategory = models.ForeignKey(Subcategory)
+
+    def __unicode__(self):
+        return u"%s" % self.name
+
+
+class Basket(models.Model):
+    name = models.CharField(max_length=50)
+    user = models.ForeignKey(User, default=1, editable=False)
+    products = models.ManyToManyField(Product)
+
+    def __unicode__(self):
+        return u"%s" % self.name
+
+    def get_absolute_url(self):
+        return reverse('mybaskets:basket_detail', kwargs={'pk': self.pk})
+
+
+class UserProfile(models.Model):
+    name = models.CharField(max_length=50, blank=True)
+    nick = models.CharField(max_length=50, blank=True)
+    user = models.ForeignKey(User, default=1, editable=False)
+    image = models.ImageField(upload_to="mybaskets/profilePics", blank=True, null=True)
+    country = models.CharField(max_length=50, blank=True)
+    description = models.TextField(default="", blank=True)
+
+    def __unicode__(self):
+        return u"%s" % self.user.username
+
+    def get_absolute_url(self):
+        return reverse('mybaskets:userprofile_detail', kwargs={'pk': self.pk})
+
+
+class Review(models.Model):
+    RATING_CHOICES = ((1, '1'),(2, '2'),(3, '3'),(4, '4'),(5, '5'))
+    rating = models.PositiveSmallIntegerField('Ratings (stars)', blank=False, default=3, choices=RATING_CHOICES)
+    comment = models.TextField(blank=True, null=True)
+    user = models.ForeignKey(User, default=1)
+    date = models.DateField(default=date.today)
+
+    class Meta:
+        abstract = True
+
+
+class ProductReview(Review):
+    product = models.ForeignKey(Product)
