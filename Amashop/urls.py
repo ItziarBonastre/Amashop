@@ -13,12 +13,21 @@ Including another URLconf
     1. Add an import:  from blog import urls as blog_urls
     2. Add a URL to urlpatterns:  url(r'^blog/', include(blog_urls))
 """
-from django.conf.urls import include, url
+from django.conf.urls import patterns, include, url
+
 from django.contrib import admin
+from django.contrib.auth.forms import UserCreationForm
+from mybaskets.views import *
+from django.conf import settings
 
 
 admin.autodiscover()
 
-urlpatterns = [
+urlpatterns = patterns('',
+    url(r'^logout/$', log_out),
+    url(r'^login/$', 'django.contrib.auth.views.login'),
+
+    url(r'^$', mainpage, name='home'),
     url(r'^admin/', include(admin.site.urls)),
-]
+    url(r'^mybaskets/', include('mybaskets.urls', namespace='mybaskets')),
+)

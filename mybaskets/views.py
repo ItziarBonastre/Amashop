@@ -8,7 +8,7 @@ from django.views.generic import DetailView, DeleteView, ListView
 from django.views.generic.edit import CreateView
 from django.contrib.auth import logout
 
-from models import Category, Subcategory, Product, Basket, UserProfile, ReleaseReview
+from models import Category, Subcategory, Product, Basket, UserProfile, ProductReview
 from forms import BasketForm, UserProfileForm
 
 
@@ -24,14 +24,14 @@ class BasketDetail(DetailView):
     template_name = 'mybaskets/basket_detail.html'
 
 
-class ReleaseList(ListView):
+class SubcategoryList(ListView):
     model = Subcategory
     queryset = Subcategory.objects.all()
     context_object_name = 'all_subcategories_list'
     template_name = 'mybaskets/subcategory_list.html'
 
 
-class ReleaseDetail(DetailView):
+class SubcategoryDetail(DetailView):
     model = Subcategory
     template_name = 'mybaskets/subcategory_detail.html'
 
@@ -109,14 +109,12 @@ def log_out(request):
 
 
 
-
-
 def review(request, pk):
-    release = get_object_or_404(Release, pk=pk)
-    new_review = ReleaseReview(
+    product = get_object_or_404(Product, pk=pk)
+    new_review = ProductReview(
         rating=request.POST['rating'],
         comment=request.POST['comment'],
         user=request.user,
-        subcategory=subcategory)
+        product=product)
     new_review.save()
-    return HttpResponseRedirect(urlresolvers.reverse('mybaskets:subcategory_detail', args=(Subcategory.id,)))
+    return HttpResponseRedirect(urlresolvers.reverse('mybaskets:product_detail', args=(Product.id,)))
