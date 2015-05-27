@@ -1,0 +1,21 @@
+{% extends "mybaskets/base.html" %}
+{% load staticfiles %}
+
+{% block content %}
+
+   
+
+<h1>List of Products.</h1>
+<ul>
+    <table>
+    {% for product in all_products_list %}
+        <tr>
+                <td><a href="{% url 'mybaskets:product_detail' product.id %}">{{ product.name }}</a></td>
+                <td><a href="{% url 'mybaskets:subcategory_detail' product.subcategory.id %}">{{ product.subcategory }}</a></td>
+                <td><a href="{% url 'mybaskets:category_detail' product.subcategory.category.id %}">{{ product.subcategory.category }}</a></td>
+        </tr>
+    {% endfor %}
+    </table>
+</ul>
+
+{% endblock %}

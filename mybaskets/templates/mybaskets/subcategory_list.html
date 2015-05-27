@@ -1,0 +1,14 @@
+{% extends "mybaskets/base.html" %}
+
+{% block content %}
+
+<h1>List of subcategories</h1>
+<ul>
+    {% for subcategories in all_subcategories_list %}
+        <li><a href="{% url 'mybaskets:subcategory_detail' subcategory.id %}">{{ subcategory.name }}</a></li>
+    {% empty %}
+        <li>Sorry, no subcategories.</li>
+    {% endfor %}
+</ul>
+
+{% endblock %}
