@@ -5,7 +5,7 @@ from models import Basket
 from forms import BasketForm
 from views import BasketDetail, BasketCreate, BasketDelete, SubcategoryDetail, CategoryDetail, ProductDetail, \
     BasketList, SubcategoryList, CategoryList, ProductList, \
-    mainpage, UserProfileCreate, UserProfileDetail, UserProfile, UserProfileForm
+    mainpage, CustomerCreate, CustomerDetail, Customer, CustomerForm
 
 urlpatterns = patterns('',
 
@@ -37,16 +37,16 @@ urlpatterns = patterns('',
     url(r'^products/$', ProductList.as_view(), name='products'),
     # Product details, ex: /mybaskets/products/1
     url(r'^products/(?P<pk>\d+)/$', ProductDetail.as_view(), name='product_detail'),
-    # User profile details, ex: /mybaskets/user/1/userprofile/
-    url(r'^user/(?P<pk>\d+)/userprofile/$', UserProfileDetail.as_view(), name='userprofile_detail'),
-    # Create a User profile: /mybaskets/user/1/userprofile/create/
-    url(r'^user/(?P<pk>\d+)/userprofile/create/$', UserProfileCreate.as_view(), name='userprofile_create'),
-    # Edit User profile details, ex: /mybaskets/user/1/userprofile/edit/1
-    url(r'^user/(?P<pk>\d+)/userprofile/edit/(?P<id>\d+)/$', UpdateView.as_view(
-        model=UserProfile,
-        form_class=UserProfileForm,
+    # Customer details, ex: /mybaskets/user/1/customer/
+    url(r'^user/(?P<pk>\d+)/customer/$', CustomerDetail.as_view(), name='customer_detail'),
+    # Create a Customer: /mybaskets/user/1/customer/create/
+    url(r'^user/(?P<pk>\d+)/customer/create/$', CustomerCreate.as_view(), name='customer_create'),
+    # Edit Customer details, ex: /mybaskets/user/1/customer/edit/1
+    url(r'^user/(?P<pk>\d+)/customer/edit/(?P<id>\d+)/$', UpdateView.as_view(
+        model=Customer,
+        form_class=CustomerForm,
         template_name='mybaskets/form.html'),
-        name='userprofile_edit'),
+        name='customer_edit'),
     url(r'^subcategory/(?P<pk>\d+)/reviews/create/$', 'mybaskets.views.review', name='review_create'),
 
     )

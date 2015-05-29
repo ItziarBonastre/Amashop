@@ -39,18 +39,21 @@ class Basket(models.Model):
         return reverse('mybaskets:basket_detail', kwargs={'pk': self.pk})
 
 
-class UserProfile(models.Model):
+class Customer(models.Model):
     name = models.CharField(max_length=50, blank=True)
-    nick = models.CharField(max_length=50, blank=True)
+    surname = models.CharField(max_length=50, blank=True)
     user = models.ForeignKey(User, default=1, editable=False)
+    adress = models.CharField(max_length=50, blank=True)
+    city = models.CharField(max_length=50, blank=True)
     country = models.CharField(max_length=50, blank=True)
-    description = models.TextField(default="", blank=True)
+    cp = models.CharField(max_length=10, blank=True)
+    phone = models.CharField(max_length=10, blank=True)
 
     def __unicode__(self):
         return u"%s" % self.user.username
 
     def get_absolute_url(self):
-        return reverse('mybaskets:userprofile_detail', kwargs={'pk': self.pk})
+        return reverse('mybaskets:customer_detail', kwargs={'pk': self.pk})
 
 
 class Review(models.Model):

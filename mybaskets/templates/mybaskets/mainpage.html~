@@ -2,13 +2,12 @@
 
 {% block content %}
     {% if not user.username %}
-        <p> Welcome anonymous:</p>
-        <p>Must <a href="/login/">sign in</a> to manage your basket</p>
-        <p>Also if you don't have an account you can <a href="/register/">sign up</a></p>
+	<ul>
+        	<p>New costumer? Start here, <a href="/register/">Sign up</a></p>
+	</ul>
     {% else %}
-        <p> Welcome {{ user.username }}</p>
         {% if not userprofile %}
-            <p>You can create your <a href="{% url "mybaskets:userprofile_create" user.id %}">user profile</a></p>
+            <p><a href="{% url "mybaskets:customer_create" user.id %}">Customer profile. </a></p>
         {% endif %}
     {%  endif %}
 {% endblock %}

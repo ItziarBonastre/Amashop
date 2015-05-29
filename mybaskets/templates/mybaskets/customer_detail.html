@@ -1,0 +1,25 @@
+{% extends "mybaskets/base.html" %}
+
+{% block content %}
+<h3><a href="{% url 'mybaskets:customer_edit' user.id customer.id %}">edit</a></h3>
+<p>
+  <h1>{{ customer.name }} {{ customer.surname }}</h1>
+</p>
+<p>
+    <h3>Address:</h3> {{ customer.adress }}
+</p>
+<p>
+    <h3>City:</h3> {{ customer.city }}
+</p>
+<p>
+  <h3>Country:</h3> {{ customer.country }}
+</p>
+
+<p>
+    <h3>CP:</h3> {{ customer.cp }}
+</p>
+
+<p>
+    <h3>Phone:</h3> {{ customer.phone }}
+</p>
+{% endblock %}

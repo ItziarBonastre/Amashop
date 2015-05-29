@@ -24,14 +24,14 @@ class BasketDetail(DetailView):
     template_name = 'mybaskets/basket_detail.html'
 
 
-class ReleaseList(ListView):
+class SubcategoryList(ListView):
     model = Subcategory
     queryset = Subcategory.objects.all()
     context_object_name = 'all_subcategories_list'
     template_name = 'mybaskets/subcategory_list.html'
 
 
-class ReleaseDetail(DetailView):
+class SubcategoryDetail(DetailView):
     model = Subcategory
     template_name = 'mybaskets/subcategory_detail.html'
 

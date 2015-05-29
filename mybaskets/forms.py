@@ -1,5 +1,5 @@
 from django.forms import ModelForm
-from mybaskets.models import Category, Subcategory, Product, Basket, UserProfile, Review
+from mybaskets.models import Category, Subcategory, Product, Basket, Customer, Review
 
 
 class CategoryForm(ModelForm):
@@ -26,7 +26,7 @@ class BasketForm(ModelForm):
         fields = "__all__"
 
 
-class UserProfileForm(ModelForm):
+class CustomerForm(ModelForm):
     class Meta:
-        model = UserProfile
-        fields = ('name', 'nick', 'country', 'description')
+        model = Customer
+        fields = ('name', 'surname', 'adress','city','country', 'cp','phone')

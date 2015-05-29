@@ -1,4 +1,4 @@
-{% extends "myplaylists/base.html" %}
+{% extends "mybaskets/base.html" %}
 {% load staticfiles %}
 
 {% block content %}
@@ -6,7 +6,7 @@
 <h1>User Login</h1>
 
  {% if form.has_errors %}
-     <p>Error on user validation.</p>
+     <p>Error.</p>
  {% endif %}
 
  <form method="post" action=".">
