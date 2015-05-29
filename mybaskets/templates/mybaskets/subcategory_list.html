@@ -4,10 +4,10 @@
 
 <h1>Subcategories</h1>
 <ul>
-    {% for subcategories in all_subcategories_list %}
+    {% for subcategory in all_subcategories_list %}
         <li><a href="{% url 'mybaskets:subcategory_detail' subcategory.id %}">{{ subcategory.name }}</a></li>
     {% empty %}
-        <li>No subcategories avaible.</li>
+        <li>Sorry, no categories avaible.</li>
     {% endfor %}
 </ul>
 
