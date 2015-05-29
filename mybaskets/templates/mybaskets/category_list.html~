@@ -1,13 +1,13 @@
-{% extends "myplaylists/base.html" %}
+{% extends "mybaskets/base.html" %}
 
 {% block content %}
 
-<h1>List of most popular Artists</h1>
+<h1>List of Categories</h1>
 <ul>
-    {% for artist in all_artists_list %}
-        <li><a href="{% url 'myplaylists:artist_detail' artist.id %}">{{ artist.name }}</a></li>
+    {% for category in all_categories_list %}
+        <li><a href="{% url 'mybaskets:category_detail' category.id %}">{{ category.name }}</a></li>
     {% empty %}
-        <li>Sorry, no artists registered yet.</li>
+        <li>Sorry, no categories.</li>
     {% endfor %}
 </ul>
 

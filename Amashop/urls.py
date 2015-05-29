@@ -27,6 +27,8 @@ urlpatterns = patterns('',
     url(r'^logout/$', log_out),
     url(r'^login/$', 'django.contrib.auth.views.login'),
 
+    url('^register/', CreateView.as_view(template_name='registration/register.html', form_class=UserCreationForm, success_url='/')),
+
     url(r'^$', mainpage, name='home'),
     url(r'^admin/', include(admin.site.urls)),
     url(r'^mybaskets/', include('mybaskets.urls', namespace='mybaskets')),

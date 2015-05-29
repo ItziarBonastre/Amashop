@@ -7,7 +7,7 @@
         Basket
             (<a href="{% url 'mybaskets:basket_create' %}">add</a>)
     {% else %}
-        <h2>Please <a href="/login/">Sign in</a> to Manage Your Content and Devices</h2>
+        <h2>Please <a href="/login/">log in</a> to manage baskets</h2>
     {% endif %}
 
 </h1>
@@ -18,7 +18,7 @@
         <li><a href="{% url 'mybaskets:basket_detail' basket.id %}">{{ basket.name }}</a></li>
       {% endif %}
     {% empty %}
-        <li>Your Shopping Basket is empty.</li>
+        <li>Sorry, no baskets registered yet.</li>
     {% endfor %}
 </ul>
 

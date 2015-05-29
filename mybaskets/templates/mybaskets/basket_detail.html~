@@ -1,0 +1,29 @@
+{% extends "mybaskets/base.html" %}
+
+{% block title %}MyBaskets - {{ basket.name }}{% endblock %}
+
+{% block content %}
+
+<h1>
+    <span property="name">{{ basket.name }}</span>
+    {% if user == basket.user %}
+        (<a href="{% url 'mybaskets:basket_edit' basket.id %}">Edit</a>)
+        (<a href="{% url 'mybaskets:delete_basket' pk=basket.pk %}">Delete</a>)
+    {% endif %}
+</h1>
+
+<h2>Products:</h2>
+<ul>
+<table>
+{% for product in basket.products.all %}
+        <tr>
+            <td><a href="{% url 'mybaskets:product_detail' product.id %}">{{ product.name }}</a></td>
+            <td><a href="{% url 'mybaskets:subcategory_detail' product.subcategory.id %}">{{ product.subcategory }}</a></td>
+            <td><a href="{% url 'mybaskets:category_detail' product.subcategory.category.id %}">{{ product.subcategory.category }}</a></td>
+        </tr>
+{% endfor %}
+</table>
+</ul>
+
+By {{ basket.user }}
+{% endblock %}

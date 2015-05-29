@@ -2,12 +2,12 @@
 
 {% block content %}
 
-<h1>List of subcategories</h1>
+<h1>Subcategories</h1>
 <ul>
     {% for subcategories in all_subcategories_list %}
         <li><a href="{% url 'mybaskets:subcategory_detail' subcategory.id %}">{{ subcategory.name }}</a></li>
     {% empty %}
-        <li>Sorry, no subcategories.</li>
+        <li>No subcategories avaible.</li>
     {% endfor %}
 </ul>
 
