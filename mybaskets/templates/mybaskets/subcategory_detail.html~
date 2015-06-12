@@ -1,0 +1,7 @@
+{% extends "mybaskets/base.html" %}
+
+{% block content %}
+SUbcategory
+<h1>{{ subcategory.name }}</h1>
+
+{% endblock %}

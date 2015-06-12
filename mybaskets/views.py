@@ -117,4 +117,6 @@ def review(request, pk):
         user=request.user,
         product=product)
     new_review.save()
-    return HttpResponseRedirect(urlresolvers.reverse('mybaskets:product_detail', args=(Product.id,)))
+    return HttpResponseRedirect(urlresolvers.reverse('mybaskets:product_detail', args=(product.id,)))
+
+

@@ -8,8 +8,8 @@ from django.views.generic import DetailView, DeleteView, ListView
 from django.views.generic.edit import CreateView
 from django.contrib.auth import logout
 
-from models import Category, Subcategory, Product, Basket, UserProfile, ProductReview
-from forms import BasketForm, UserProfileForm
+from models import Category, Subcategory, Product, Basket, Customer, ProductReview
+from forms import BasketForm, CustomerForm
 
 
 class BasketList(ListView):
@@ -75,20 +75,20 @@ class BasketDelete(DeleteView):
     success_url = '/mybaskets/baskets'
 
 
-class UserProfileCreate(CreateView):
-    model = UserProfile
+class CustomerCreate(CreateView):
+    model = Customer
     template_name = 'mybaskets/form.html'
-    form_class = UserProfileForm
+    form_class = CustomerForm
 
     def form_valid(self, form):
         form.instance.id = self.request.user.id
         form.instance.user = self.request.user
-        return super(UserProfileCreate, self).form_valid(form)
+        return super(CustomerCreate, self).form_valid(form)
 
 
-class UserProfileDetail(DetailView):
-    model = UserProfile
-    template_name = 'mybaskets/userprofile_detail.html'
+class CustomerDetail(DetailView):
+    model = Customer
+    template_name = 'mybaskets/customer_detail.html'
 
 
 def mainpage(request):
@@ -96,7 +96,7 @@ def mainpage(request):
         'mybaskets/mainpage.html',
         {
             'user': request.user,
-            'userprofile': UserProfile.objects.filter(user__id=request.user.id)
+            'customer': Customer.objects.filter(user__id=request.user.id)
         }
     )
 
@@ -117,4 +117,4 @@ def review(request, pk):
         user=request.user,
         product=product)
     new_review.save()
-    return HttpResponseRedirect(urlresolvers.reverse('mybaskets:product_detail', args=(Product.id,)))
+    return HttpResponseRedirect(urlresolvers.reverse('mybaskets:product_detail', args=(product.id,)))
