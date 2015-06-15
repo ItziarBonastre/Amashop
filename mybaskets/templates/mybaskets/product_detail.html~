@@ -23,35 +23,42 @@
         <ul rel="review">
             {% for review in product.productreview_set.all %}
                 <li typeof="Review">
-                    <span property="reviewRating" typeof="Rating">
-                        Rating:
+                    <p rel="reviewRating" typeof="Rating">
+			<span property="worstRating" content="{{ RATING_CHOICES.0.0 }}"></span>
                         <span property="ratingValue">{{ review.rating }}</span>
-                        <span property="worstRating" content="0"></span>
-                        <span property="bestRating" content="5"></span>
-                        by
-                    </span>
-                    <span property="author">{{ review.user }}</span>
-                    <p property="reviewBody">{{ review.comment }}</p>
-                    <span property="datePublished">{{ review.date}}</span>
+			star{{ review.rating|pluralize }}
+			{% with RATING_CHOICES|last as best %}
+                        <span property="bestRating" content="{{ best.0 }}"></span>
+                        {% endwith %}
+                    </p>
+                    <p property="description">{{ review.comment }}</p>
+                    <p>Created by <span property="author">{{ review.user }}</span> on
+                    <span property="publishDate">{{ review.date}}</span></p>
                 </li>
             {% endfor %}
         </ul>
-        <h3>Your Review</h3>
+	</span>
+	{% endif %}
+        <h3>Add Review</h3>
         <form action="{% url 'mybaskets:review_create' product.id %}" method="post">
             {% csrf_token %}
-            Rating:
-            <select name="rating" id="rating">
+            Message: <textarea name="coment" id="comment" rows="4"></textarea>
+	    <p>Rating:</p>
+	    <select name="rating" id="rating">
                 <option value="5">5</option>
                 <option value="4">4</option>
                 <option selected value="3">3</option>
                 <option value="2">2</option>
                 <option value="1">1</option>
             </select><br>
-            Comment: <br>
-            <textarea  name="comment" id="comment" rows="4" cols="30"></textarea>
-            <br>
-            <input type="submit" value="Review" />
-        </form>
-    </div>
-</span>
+	    <p>
+	    {% for rate in RATING_CHOICES %}
+		<input type="radio" name"rating" id="rating{{ forloop.counter }}"
+			value="{{ rate.1 }}" />
+		<label for="choice{{ forloop.counter }}">{{ rate.1 }}
+			star{{ rate.0|pluralize }}</label><br />
+	    {% endfor %}
+	    </p>
+	    <input type="submit" value="Review" />
+	</form>
 {% endblock %}

@@ -112,9 +112,11 @@ def log_out(request):
 def review(request, pk):
     product = get_object_or_404(Product, pk=pk)
     new_review = ProductReview(
-        rating=request.POST['rating'],
+        #rating=request.POST['rating'],
         comment=request.POST['comment'],
         user=request.user,
         product=product)
     new_review.save()
     return HttpResponseRedirect(urlresolvers.reverse('mybaskets:product_detail', args=(product.id,)))
+
+

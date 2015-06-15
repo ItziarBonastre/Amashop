@@ -42,8 +42,14 @@
         <h3>Add Review</h3>
         <form action="{% url 'mybaskets:review_create' product.id %}" method="post">
             {% csrf_token %}
-            Message: <textarea name="coment" id="comment" rows="4"></textarea>
 	    <p>Rating:</p>
+	    <select name="rating" id="rating">
+                <option value="5">5</option>
+                <option value="4">4</option>
+                <option selected value="3">3</option>
+                <option value="2">2</option>
+                <option value="1">1</option>
+            </select><br>
 	    <p>
 	    {% for rate in RATING_CHOICES %}
 		<input type="radio" name"rating" id="rating{{ forloop.counter }}"
@@ -52,6 +58,10 @@
 			star{{ rate.0|pluralize }}</label><br />
 	    {% endfor %}
 	    </p>
+           Comment: <br>
+            <textarea  name="comment" id="comment" rows="4" cols="30"></textarea>
+            <br>
+	    
 	    <input type="submit" value="Review" />
 	</form>
 {% endblock %}
